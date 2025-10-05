@@ -27,11 +27,46 @@ const GamePage: React.FC = () => {
   const loadGame = async (gameId: string) => {
     setIsLoading(true);
     try {
-      const response = await apiClient.getGame(gameId);
-      if (response.success && response.data) {
-        setCurrentGame(response.data);
-        // Initialize game state from FEN
-        // This would typically come from the server
+      // Check if this is a demo game
+      if (gameId.startsWith('demo-')) {
+        // For demo games, use the current game from store or create a demo game
+        const demoGame = currentGame || {
+          id: gameId,
+          whitePlayer: {
+            id: 'demo-user',
+            username: 'Demo Player',
+            email: 'demo@chess.com',
+            elo: 1200,
+            wins: 15,
+            losses: 8,
+            draws: 3,
+            createdAt: new Date().toISOString()
+          },
+          blackPlayer: {
+            id: 'demo-opponent',
+            username: 'Chess Bot',
+            email: 'bot@chess.com',
+            elo: 1400,
+            wins: 30,
+            losses: 10,
+            draws: 5,
+            createdAt: new Date().toISOString()
+          },
+          status: 'active' as const,
+          timeControl: {
+            type: 'blitz' as const,
+            initialTime: 300,
+            increment: 5
+          },
+          moves: [],
+          currentPlayer: 'white' as const,
+          createdAt: new Date().toISOString(),
+          startedAt: new Date().toISOString()
+        };
+        
+        setCurrentGame(demoGame);
+        
+        // Initialize game state with starting position
         setGameState({
           fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
           moves: [],
@@ -41,8 +76,25 @@ const GamePage: React.FC = () => {
           isStalemate: false,
           isDraw: false,
           capturedPieces: { white: [], black: [] },
-          timeLeft: { white: currentGame?.timeControl.initialTime || 0, black: currentGame?.timeControl.initialTime || 0 }
+          timeLeft: { white: demoGame.timeControl.initialTime, black: demoGame.timeControl.initialTime }
         });
+      } else {
+        // For real games, use API
+        const response = await apiClient.getGame(gameId);
+        if (response.success && response.data) {
+          setCurrentGame(response.data);
+          setGameState({
+            fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+            moves: [],
+            currentPlayer: 'white',
+            isCheck: false,
+            isCheckmate: false,
+            isStalemate: false,
+            isDraw: false,
+            capturedPieces: { white: [], black: [] },
+            timeLeft: { white: response.data.timeControl.initialTime, black: response.data.timeControl.initialTime }
+          });
+        }
       }
     } catch (error) {
       console.error('Failed to load game:', error);
@@ -88,7 +140,8 @@ const GamePage: React.FC = () => {
     );
   }
 
-  const isPlayerTurn = gameState?.currentPlayer === (currentGame.whitePlayer.id === user?.id ? 'white' : 'black');
+  // For demo mode, always allow the current player to move
+  const isPlayerTurn = gameState?.currentPlayer === 'white' || gameState?.currentPlayer === 'black';
 
   return (
     <div className="min-h-screen bg-dark-900 p-4">

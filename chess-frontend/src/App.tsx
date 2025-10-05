@@ -51,18 +51,8 @@ function App() {
     <Router>
       <div className="min-h-screen bg-dark-900">
         <Routes>
-          {/* Root route goes directly to demo */}
-          <Route
-            path="/"
-            element={
-              <Layout>
-                <DashboardPage />
-              </Layout>
-            }
-          />
-          
-          {/* Landing page at /home */}
-          <Route path="/home" element={<LandingPage />} />
+          {/* Public routes */}
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           

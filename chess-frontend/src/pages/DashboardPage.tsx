@@ -9,7 +9,7 @@ import QuickMatchButton from '../components/QuickMatchButton';
 
 const DashboardPage: React.FC = () => {
   const { user, isAuthenticated } = useAuthStore();
-  const { availableGames, setAvailableGames, setLoading: _setLoading } = useGameStore();
+  const { availableGames, setAvailableGames, setCurrentGame, setLoading: _setLoading } = useGameStore();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [isLoadingGames, setIsLoadingGames] = useState(false);
 
@@ -115,8 +115,37 @@ const DashboardPage: React.FC = () => {
 
   const handleQuickMatch = () => {
     soundManager.playClick();
-    // Implement quick match logic
-    console.log('Quick match requested');
+    // Create a demo game and navigate to it
+    const demoGame = {
+      id: 'demo-quick-match',
+      whitePlayer: currentUser,
+      blackPlayer: {
+        id: 'demo-opponent-quick',
+        username: 'Chess Bot',
+        email: 'bot@chess.com',
+        avatar: undefined,
+        elo: 1400,
+        wins: 30,
+        losses: 10,
+        draws: 5,
+        createdAt: new Date().toISOString()
+      },
+      status: 'active' as const,
+      timeControl: {
+        type: 'blitz' as const,
+        initialTime: 300,
+        increment: 5
+      },
+      moves: [],
+      currentPlayer: 'white' as const,
+      winner: undefined,
+      createdAt: new Date().toISOString(),
+      startedAt: new Date().toISOString()
+    };
+    
+    // Set the current game and navigate to it
+    setCurrentGame(demoGame);
+    window.location.href = `/game/${demoGame.id}`;
   };
 
   const stats = [
