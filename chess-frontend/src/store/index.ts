@@ -64,13 +64,18 @@ export const useAuthStore = create<AuthState>()(
         },
         setLoading: (isLoading) => set({ isLoading }),
         initializeAuth: () => {
+          console.log('Initializing auth...');
           const token = localStorage.getItem('auth-token');
           const storedState = localStorage.getItem('auth-storage');
+          
+          console.log('Token exists:', !!token, 'Stored state exists:', !!storedState);
           
           if (token && storedState) {
             try {
               const parsed = JSON.parse(storedState);
+              console.log('Parsed stored state:', parsed);
               if (parsed.state?.user && parsed.state?.isAuthenticated) {
+                console.log('Restoring authenticated user:', parsed.state.user);
                 set({ 
                   user: parsed.state.user, 
                   isAuthenticated: true, 
@@ -84,6 +89,7 @@ export const useAuthStore = create<AuthState>()(
           }
           
           // No valid auth found
+          console.log('No valid auth found, setting unauthenticated state');
           set({ user: null, isAuthenticated: false, isLoading: false });
         }
       }),

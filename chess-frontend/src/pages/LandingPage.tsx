@@ -1,11 +1,16 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { soundManager } from '../utils/sounds';
+import { useEffect } from 'react';
 
 const LandingPage: React.FC = () => {
+  const navigate = useNavigate();
+  
   const handlePlayClick = () => {
     soundManager.playClick();
   };
+
+  // No auto-redirect needed since root goes to demo
 
   const features = [
     {

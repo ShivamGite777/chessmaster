@@ -28,6 +28,9 @@ function App() {
     soundManager.preloadSounds();
   }, [initializeAuth]);
 
+  // Add debugging
+  console.log('App render - isAuthenticated:', isAuthenticated, 'isLoading:', isLoading);
+
   useEffect(() => {
     // Connect to socket if authenticated
     if (isAuthenticated) {
@@ -48,8 +51,18 @@ function App() {
     <Router>
       <div className="min-h-screen bg-dark-900">
         <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<LandingPage />} />
+          {/* Root route goes directly to demo */}
+          <Route
+            path="/"
+            element={
+              <Layout>
+                <DashboardPage />
+              </Layout>
+            }
+          />
+          
+          {/* Landing page at /home */}
+          <Route path="/home" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           
