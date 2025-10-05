@@ -1,5 +1,5 @@
 [build]
-  command = "./build.sh"
+  command = "cd chess-frontend && npm install && npm run build && cd .. && mkdir -p public && cp -r chess-frontend/public/* public/ && mkdir -p public/api/auth public/api/games"
   publish = "public"
 
 [build.environment]

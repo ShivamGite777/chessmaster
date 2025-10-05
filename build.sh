@@ -1,12 +1,6 @@
 #!/bin/bash
 echo "Starting Netlify build process..."
 
-# Install backend dependencies
-echo "Installing backend dependencies..."
-cd netlify/functions
-npm install
-cd ../..
-
 # Navigate to chess-frontend directory
 cd chess-frontend
 
@@ -28,6 +22,11 @@ mkdir -p public
 # Copy built files to public directory
 echo "Copying files to public directory..."
 cp -r chess-frontend/public/* public/
+
+# Copy API files
+echo "Copying API files..."
+mkdir -p public/api/auth public/api/games
+cp -r api/* public/api/ 2>/dev/null || true
 
 # List contents of public directory
 echo "Contents of public directory:"
