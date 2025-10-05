@@ -25,9 +25,24 @@
     Access-Control-Allow-Origin = "*"
 
 [[redirects]]
-  from = "/api/*"
+  from = "/api/health"
   status = 200
-  to = "/.netlify/functions/api"
+  to = "/api/health.json"
+
+[[redirects]]
+  from = "/api/auth/register"
+  status = 200
+  to = "/api/auth/register.json"
+
+[[redirects]]
+  from = "/api/auth/login"
+  status = 200
+  to = "/api/auth/login.json"
+
+[[redirects]]
+  from = "/api/games"
+  status = 200
+  to = "/api/games/index.json"
 
 [[redirects]]
   from = "/*"

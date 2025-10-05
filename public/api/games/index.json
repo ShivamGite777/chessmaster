@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": "demo-game-1",
+      "whitePlayer": {
+        "id": "demo-user-123",
+        "username": "Demo User",
+        "elo": 1200
+      },
+      "blackPlayer": null,
+      "status": "waiting",
+      "timeControl": {
+        "type": "blitz",
+        "initialTime": 300,
+        "increment": 5
+      },
+      "moves": [],
+      "currentPlayer": "white",
+      "createdAt": "2025-01-05T07:50:00.000Z"
+    }
+  ]
+}
