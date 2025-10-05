@@ -17,7 +17,7 @@ class ApiClient {
 
   constructor() {
     this.client = axios.create({
-      baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001/api',
+      baseURL: import.meta.env.VITE_API_URL || '/api',
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
@@ -102,12 +102,12 @@ class ApiClient {
   }
 
   async getAvailableGames(): Promise<ApiResponse<Game[]>> {
-    const response = await this.client.get('/games/available');
+    const response = await this.client.get('/games');
     return response.data;
   }
 
   async getMyGames(): Promise<ApiResponse<Game[]>> {
-    const response = await this.client.get('/games/my-games');
+    const response = await this.client.get('/games');
     return response.data;
   }
 

@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "Modern Multiplayer Chess Game",
   "scripts": {
-    "build": "echo 'Starting build...' && cd chess-frontend && echo 'Installing dependencies...' && npm install && echo 'Building React app...' && npm run build && cd .. && echo 'Creating public directory...' && mkdir -p public && echo 'Copying files...' && cp -r chess-frontend/public/* public/ && echo 'Build complete! Files in public:' && ls -la public/",
-    "dev": "cd chess-frontend && npm run dev"
+    "build": "cd chess-frontend && npm install && npm run build",
+    "dev": "cd chess-frontend && npm run dev",
+    "start": "cd chess-frontend && npm run preview"
   },
-  "keywords": ["chess", "multiplayer", "react", "typescript"],
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "chess.js": "^1.0.0-beta.6"
+  },
+  "keywords": ["chess", "multiplayer", "react", "typescript", "vercel"],
   "author": "ShivamGite777",
   "license": "MIT"
 }
