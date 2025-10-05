@@ -1,7 +1,6 @@
 [build]
-  base = "chess-frontend"
   command = "npm run build"
-  publish = "chess-frontend/public"
+  publish = "public"
 
 [build.environment]
   NODE_VERSION = "18"

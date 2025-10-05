@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Modern Multiplayer Chess Game",
   "scripts": {
-    "build": "cd chess-frontend && npm install && npm run build && cd .. && mkdir -p public && cp -r chess-frontend/public/* public/",
+    "build": "echo 'Starting build...' && cd chess-frontend && echo 'Installing dependencies...' && npm install && echo 'Building React app...' && npm run build && cd .. && echo 'Creating public directory...' && mkdir -p public && echo 'Copying files...' && cp -r chess-frontend/public/* public/ && echo 'Build complete! Files in public:' && ls -la public/",
     "dev": "cd chess-frontend && npm run dev"
   },
   "keywords": ["chess", "multiplayer", "react", "typescript"],
