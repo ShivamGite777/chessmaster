@@ -18,12 +18,17 @@ import ProtectedRoute from './components/ProtectedRoute';
 import LoadingSpinner from './components/LoadingSpinner';
 
 function App() {
-  const { isAuthenticated, isLoading, setLoading: _setLoading } = useAuthStore();
+  const { isAuthenticated, isLoading, initializeAuth } = useAuthStore();
 
   useEffect(() => {
+    // Initialize authentication state
+    initializeAuth();
+    
     // Initialize sound manager
     soundManager.preloadSounds();
+  }, [initializeAuth]);
 
+  useEffect(() => {
     // Connect to socket if authenticated
     if (isAuthenticated) {
       const token = localStorage.getItem('auth-token');
@@ -47,6 +52,16 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          
+          {/* Demo route - accessible without authentication */}
+          <Route
+            path="/demo"
+            element={
+              <Layout>
+                <DashboardPage />
+              </Layout>
+            }
+          />
 
           {/* Protected routes */}
           <Route

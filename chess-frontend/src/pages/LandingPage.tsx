@@ -99,11 +99,18 @@ const LandingPage: React.FC = () => {
               transition={{ delay: 0.6 }}
             >
               <Link
-                to="/register"
+                to="/demo"
                 className="btn-primary text-lg px-8 py-4"
                 onClick={handlePlayClick}
               >
-                Play Now
+                Try Demo
+              </Link>
+              <Link
+                to="/register"
+                className="btn-secondary text-lg px-8 py-4"
+                onClick={handlePlayClick}
+              >
+                Sign Up
               </Link>
               <Link
                 to="/login"
@@ -214,13 +221,22 @@ const LandingPage: React.FC = () => {
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Join thousands of players and start your chess journey today
             </p>
-            <Link
-              to="/register"
-              className="btn-primary text-lg px-8 py-4"
-              onClick={handlePlayClick}
-            >
-              Get Started Free
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/demo"
+                className="btn-primary text-lg px-8 py-4"
+                onClick={handlePlayClick}
+              >
+                Try Demo Now
+              </Link>
+              <Link
+                to="/register"
+                className="btn-secondary text-lg px-8 py-4"
+                onClick={handlePlayClick}
+              >
+                Get Started Free
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

@@ -9,6 +9,7 @@ interface AuthState {
   login: (user: User) => void;
   logout: () => void;
   setLoading: (loading: boolean) => void;
+  initializeAuth: () => void;
 }
 
 interface GameStoreState {
@@ -52,13 +53,39 @@ interface UIState {
 export const useAuthStore = create<AuthState>()(
   devtools(
     persist(
-      (set) => ({
+      (set, get) => ({
         user: null,
         isAuthenticated: false,
-        isLoading: false,
-        login: (user) => set({ user, isAuthenticated: true }),
-        logout: () => set({ user: null, isAuthenticated: false }),
+        isLoading: true, // Start with loading true
+        login: (user) => set({ user, isAuthenticated: true, isLoading: false }),
+        logout: () => {
+          localStorage.removeItem('auth-token');
+          set({ user: null, isAuthenticated: false, isLoading: false });
+        },
         setLoading: (isLoading) => set({ isLoading }),
+        initializeAuth: () => {
+          const token = localStorage.getItem('auth-token');
+          const storedState = localStorage.getItem('auth-storage');
+          
+          if (token && storedState) {
+            try {
+              const parsed = JSON.parse(storedState);
+              if (parsed.state?.user && parsed.state?.isAuthenticated) {
+                set({ 
+                  user: parsed.state.user, 
+                  isAuthenticated: true, 
+                  isLoading: false 
+                });
+                return;
+              }
+            } catch (error) {
+              console.error('Error parsing stored auth state:', error);
+            }
+          }
+          
+          // No valid auth found
+          set({ user: null, isAuthenticated: false, isLoading: false });
+        }
       }),
       {
         name: 'auth-storage',

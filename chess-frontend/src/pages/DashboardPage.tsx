@@ -8,10 +8,25 @@ import GameList from '../components/GameList';
 import QuickMatchButton from '../components/QuickMatchButton';
 
 const DashboardPage: React.FC = () => {
-  const { user } = useAuthStore();
+  const { user, isAuthenticated } = useAuthStore();
   const { availableGames, setAvailableGames, setLoading: _setLoading } = useGameStore();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [isLoadingGames, setIsLoadingGames] = useState(false);
+
+  // Demo user for non-authenticated users
+  const demoUser = {
+    id: 'demo-user',
+    username: 'Demo Player',
+    email: 'demo@chessmaster.com',
+    avatar: undefined,
+    elo: 1200,
+    wins: 15,
+    losses: 8,
+    draws: 3,
+    createdAt: new Date().toISOString()
+  };
+
+  const currentUser = isAuthenticated ? user : demoUser;
 
   useEffect(() => {
     loadAvailableGames();
@@ -20,9 +35,39 @@ const DashboardPage: React.FC = () => {
   const loadAvailableGames = async () => {
     setIsLoadingGames(true);
     try {
-      const response = await apiClient.getAvailableGames();
-      if (response.success && response.data) {
-        setAvailableGames(response.data);
+      if (isAuthenticated) {
+        const response = await apiClient.getAvailableGames();
+        if (response.success && response.data) {
+          setAvailableGames(response.data);
+        }
+      } else {
+        // Demo mode - create some sample games
+        const demoGames = [
+          {
+            id: 'demo-game-1',
+            whitePlayer: demoUser,
+            blackPlayer: {
+              id: 'demo-opponent-1',
+              username: 'Chess Master',
+              email: 'master@chess.com',
+              elo: 1500,
+              wins: 25,
+              losses: 5,
+              draws: 2,
+              createdAt: new Date().toISOString()
+            },
+            status: 'active' as const,
+            timeControl: {
+              type: 'blitz' as const,
+              initialTime: 300,
+              increment: 5
+            },
+            moves: [],
+            currentPlayer: 'white' as const,
+            createdAt: new Date().toISOString()
+          }
+        ];
+        setAvailableGames(demoGames);
       }
     } catch (error) {
       console.error('Failed to load games:', error);
@@ -45,25 +90,25 @@ const DashboardPage: React.FC = () => {
   const stats = [
     {
       label: 'Games Won',
-      value: user?.wins || 0,
+      value: currentUser?.wins || 0,
       color: 'text-success',
       icon: '🏆'
     },
     {
       label: 'Games Lost',
-      value: user?.losses || 0,
+      value: currentUser?.losses || 0,
       color: 'text-danger',
       icon: '💔'
     },
     {
       label: 'Games Drawn',
-      value: user?.draws || 0,
+      value: currentUser?.draws || 0,
       color: 'text-gray-400',
       icon: '🤝'
     },
     {
       label: 'ELO Rating',
-      value: user?.elo || 1200,
+      value: currentUser?.elo || 1200,
       color: 'text-primary-400',
       icon: '⭐'
     }
@@ -80,10 +125,10 @@ const DashboardPage: React.FC = () => {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-4xl font-bold text-white mb-2">
-            Welcome back, {user?.username}!
+            {isAuthenticated ? `Welcome back, ${currentUser?.username}!` : `Welcome, ${currentUser?.username}!`}
           </h1>
           <p className="text-gray-400 text-lg">
-            Ready for your next chess challenge?
+            {isAuthenticated ? 'Ready for your next chess challenge?' : 'Try out our chess platform - no account required!'}
           </p>
         </motion.div>
 
