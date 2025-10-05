@@ -27,7 +27,7 @@
 [[redirects]]
   from = "/api/*"
   status = 200
-  to = "/.netlify/functions/api/:splat"
+  to = "/.netlify/functions/api"
 
 [[redirects]]
   from = "/*"
