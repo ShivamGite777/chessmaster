@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-text-primary font-sans antialiased;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .chess-board {
+    @apply relative;
+  }
+  
+  .chess-square {
+    @apply relative flex items-center justify-center cursor-pointer transition-all duration-200;
+  }
+  
+  .chess-square.light {
+    @apply bg-light-square;
+  }
+  
+  .chess-square.dark {
+    @apply bg-dark-square;
+  }
+  
+  .chess-square.highlight-legal {
+    @apply bg-highlight-legal;
+  }
+  
+  .chess-square.highlight-lastmove {
+    @apply bg-highlight-lastmove;
+  }
+  
+  .chess-square.highlight-check {
+    @apply bg-highlight-check;
+  }
+  
+  .chess-piece {
+    @apply cursor-grab active:cursor-grabbing transition-transform duration-200;
+  }
+  
+  .chess-piece:hover {
+    @apply scale-110;
+  }
+  
+  .btn-primary {
+    @apply bg-primary hover:bg-primary/90 text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-surface hover:bg-surface/80 text-text-primary font-medium px-4 py-2 rounded-lg border border-gray-600 transition-colors duration-200;
+  }
+  
+  .btn-danger {
+    @apply bg-danger hover:bg-danger/90 text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200;
+  }
+  
+  .input-field {
+    @apply w-full px-3 py-2 bg-surface border border-gray-600 rounded-lg text-text-primary placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-200;
+  }
+  
+  .card {
+    @apply bg-surface border border-gray-600 rounded-lg p-4 shadow-lg;
+  }
+  
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4;
+  }
+  
+  .modal-content {
+    @apply bg-surface border border-gray-600 rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
