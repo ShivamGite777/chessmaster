@@ -160,6 +160,31 @@ The app expects the following backend API endpoints:
 
 ## Deployment
 
+### Quick Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/chess-master-app)
+
+### Manual Vercel Deployment
+
+1. **Install Vercel CLI:**
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Login to Vercel:**
+   ```bash
+   vercel login
+   ```
+
+3. **Deploy:**
+   ```bash
+   vercel --prod
+   ```
+
+4. **Set Environment Variables:**
+   - `VITE_API_URL`: Your backend API URL
+   - `VITE_WS_URL`: Your WebSocket URL
+
 ### Build for Production
 
 ```bash
@@ -179,10 +204,20 @@ VITE_WS_URL=https://your-api-domain.com
 
 ### Deployment Options
 
-- **Vercel**: Connect your GitHub repository and deploy automatically
+- **Vercel** (Recommended): Automatic deployments from GitHub
 - **Netlify**: Drag and drop the `dist` folder or connect to Git
 - **AWS S3 + CloudFront**: Upload to S3 and configure CloudFront
 - **Docker**: Use the provided Dockerfile for containerized deployment
+
+### Vercel Configuration
+
+The project includes a `vercel.json` configuration file with:
+- Optimized build settings
+- SPA routing support
+- Static asset caching
+- Environment variable management
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 
 ## Contributing
 
