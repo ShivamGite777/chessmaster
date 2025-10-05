@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { User, Game, GameState, Notification, AppSettings, SoundConfig, ThemeConfig } from '../types';
+import type { User, Game, GameState as CustomGameState, Notification, AppSettings, SoundConfig, ThemeConfig } from '../types';
 
 interface AuthState {
   user: User | null;
@@ -11,13 +11,13 @@ interface AuthState {
   setLoading: (loading: boolean) => void;
 }
 
-interface GameState {
+interface GameStoreState {
   currentGame: Game | null;
-  gameState: GameState | null;
+  gameState: CustomGameState | null;
   availableGames: Game[];
   isLoading: boolean;
   setCurrentGame: (game: Game | null) => void;
-  setGameState: (state: GameState | null) => void;
+  setGameState: (state: CustomGameState | null) => void;
   setAvailableGames: (games: Game[]) => void;
   setLoading: (loading: boolean) => void;
   addMove: (move: any) => void;
@@ -70,7 +70,7 @@ export const useAuthStore = create<AuthState>()(
 );
 
 // Game Store
-export const useGameStore = create<GameState>()(
+export const useGameStore = create<GameStoreState>()(
   devtools(
     (set, get) => ({
       currentGame: null,
@@ -101,7 +101,7 @@ export const useGameStore = create<GameState>()(
 // Notification Store
 export const useNotificationStore = create<NotificationState>()(
   devtools(
-    (set, get) => ({
+    (set, _get) => ({
       notifications: [],
       unreadCount: 0,
       addNotification: (notification) => {

@@ -18,7 +18,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import LoadingSpinner from './components/LoadingSpinner';
 
 function App() {
-  const { isAuthenticated, isLoading, setLoading } = useAuthStore();
+  const { isAuthenticated, isLoading, setLoading: _setLoading } = useAuthStore();
 
   useEffect(() => {
     // Initialize sound manager

@@ -6,13 +6,17 @@
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: #e5e7eb;
   }
   
   body {
-    @apply bg-dark-900 text-white font-chess antialiased;
+    background-color: #0f172a;
+    color: white;
+    font-family: 'Inter', system-ui, sans-serif;
     margin: 0;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   html {
@@ -22,47 +26,99 @@
 
 @layer components {
   .glass {
-    @apply bg-white/10 backdrop-blur-md border border-white/20;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   
   .glass-dark {
-    @apply bg-black/20 backdrop-blur-md border border-white/10;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   .btn-primary {
-    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 transform hover:scale-105 hover:shadow-lg;
+    background-color: #eab308;
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    transform: scale(1);
+  }
+  
+  .btn-primary:hover {
+    background-color: #ca8a04;
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   }
   
   .btn-secondary {
-    @apply bg-dark-700 hover:bg-dark-600 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 border border-dark-600;
+    background-color: #334155;
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #475569;
+    transition: all 0.2s;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #475569;
   }
   
   .btn-danger {
-    @apply bg-danger hover:bg-red-600 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200;
+    background-color: #EF4444;
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+  }
+  
+  .btn-danger:hover {
+    background-color: #dc2626;
   }
   
   .input-field {
-    @apply w-full px-4 py-3 bg-dark-800 border border-dark-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #1e293b;
+    border: 1px solid #475569;
+    border-radius: 0.5rem;
+    color: white;
+    transition: all 0.2s;
+  }
+  
+  .input-field::placeholder {
+    color: #9ca3af;
+  }
+  
+  .input-field:focus {
+    outline: none;
+    border-color: #eab308;
+    box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.2);
   }
   
   .chess-square-light {
-    @apply bg-amber-100;
+    background-color: #fef3c7;
   }
   
   .chess-square-dark {
-    @apply bg-amber-800;
+    background-color: #92400e;
   }
   
   .chess-square-highlight {
-    @apply bg-primary-500/30;
+    background-color: rgba(234, 179, 8, 0.3);
   }
   
   .chess-square-check {
-    @apply bg-danger/50 animate-pulse-glow;
+    background-color: rgba(239, 68, 68, 0.5);
+    animation: pulseGlow 1s ease-in-out infinite;
   }
   
   .chess-square-last-move {
-    @apply ring-2 ring-primary-400;
+    box-shadow: 0 0 0 2px #facc15;
   }
 }
 

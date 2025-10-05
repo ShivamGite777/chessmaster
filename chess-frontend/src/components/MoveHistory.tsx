@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Move } from '../types';
+import type { Move } from '../types';
 
 interface MoveHistoryProps {
   moves: Move[];

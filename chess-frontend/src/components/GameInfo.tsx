@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Game, GameState } from '../types';
+import type { Game, GameState } from '../types';
 import { formatTime } from '../utils/chess';
 
 interface GameInfoProps {
@@ -8,13 +8,6 @@ interface GameInfoProps {
 }
 
 const GameInfo: React.FC<GameInfoProps> = ({ currentGame, gameState }) => {
-  const getPlayerColor = (userId: string): 'white' | 'black' => {
-    return currentGame.whitePlayer.id === userId ? 'white' : 'black';
-  };
-
-  const getPlayerInfo = (color: 'white' | 'black') => {
-    return color === 'white' ? currentGame.whitePlayer : currentGame.blackPlayer;
-  };
 
   return (
     <motion.div

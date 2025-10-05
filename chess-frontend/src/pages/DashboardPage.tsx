@@ -9,7 +9,7 @@ import QuickMatchButton from '../components/QuickMatchButton';
 
 const DashboardPage: React.FC = () => {
   const { user } = useAuthStore();
-  const { availableGames, setAvailableGames, setLoading } = useGameStore();
+  const { availableGames, setAvailableGames, setLoading: _setLoading } = useGameStore();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [isLoadingGames, setIsLoadingGames] = useState(false);
 
@@ -94,7 +94,7 @@ const DashboardPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
         >
-          {stats.map((stat, index) => (
+          {stats.map((stat, _index) => (
             <motion.div
               key={stat.label}
               className="glass-dark rounded-xl p-6 text-center"

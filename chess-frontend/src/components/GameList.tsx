@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Game } from '../types';
+import type { Game } from '../types';
 import { formatTime } from '../utils/chess';
 import { soundManager } from '../utils/sounds';
 

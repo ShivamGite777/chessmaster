@@ -1,5 +1,5 @@
 import { Chess } from 'chess.js';
-import { Move, GameState } from '../types';
+import type { Move, GameState } from '../types';
 
 export class ChessGame {
   private chess: Chess;
@@ -31,7 +31,7 @@ export class ChessGame {
 
   getValidMoves(square?: string): any[] {
     if (square) {
-      return this.chess.moves({ square, verbose: true });
+      return this.chess.moves({ square: square as any, verbose: true });
     }
     return this.chess.moves({ verbose: true });
   }
@@ -91,9 +91,9 @@ export class ChessGame {
       if (move.captured) {
         const piece = move.captured.toUpperCase();
         if (move.color === 'w') {
-          captured.black.push(piece);
+          (captured.black as string[]).push(piece);
         } else {
-          captured.white.push(piece);
+          (captured.white as string[]).push(piece);
         }
       }
     });

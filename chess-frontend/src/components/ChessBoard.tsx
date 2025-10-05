@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Game, GameState } from '../types';
+import type { Game, GameState } from '../types';
 import { ChessGame, getSquareColor, getSquareCoordinates } from '../utils/chess';
 import { soundManager } from '../utils/sounds';
 
@@ -15,7 +15,7 @@ const ChessBoard: React.FC<ChessBoardProps> = ({ gameState, onMove, isPlayerTurn
   const [selectedSquare, setSelectedSquare] = useState<string | null>(null);
   const [validMoves, setValidMoves] = useState<string[]>([]);
   const [draggedPiece, setDraggedPiece] = useState<string | null>(null);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [_dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
   const chess = new ChessGame(gameState?.fen);
 
@@ -66,7 +66,7 @@ const ChessBoard: React.FC<ChessBoardProps> = ({ gameState, onMove, isPlayerTurn
     }
   }, [selectedSquare, isPlayerTurn, currentGame.status, chess, onMove]);
 
-  const handleSquareHover = (square: string) => {
+  const handleSquareHover = (_square: string) => {
     if (draggedPiece) {
       // Handle drag hover
     }
@@ -88,7 +88,7 @@ const ChessBoard: React.FC<ChessBoardProps> = ({ gameState, onMove, isPlayerTurn
     }
   };
 
-  const handleDragEnd = (e: React.DragEvent, square: string) => {
+  const handleDragEnd = (_e: React.DragEvent, square: string) => {
     if (draggedPiece && validMoves.includes(square)) {
       const move = { from: draggedPiece, to: square };
       if (chess.makeMove(move)) {
@@ -125,8 +125,8 @@ const ChessBoard: React.FC<ChessBoardProps> = ({ gameState, onMove, isPlayerTurn
         `}
         onClick={() => handleSquareClick(square)}
         onMouseEnter={() => handleSquareHover(square)}
-        onDragStart={(e) => handleDragStart(e, square)}
-        onDragEnd={(e) => handleDragEnd(e, square)}
+        onDragStart={(e) => handleDragStart(e as unknown as React.DragEvent, square)}
+        onDragEnd={(e) => handleDragEnd(e as unknown as React.DragEvent, square)}
         draggable={!!piece && isPlayerTurn}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

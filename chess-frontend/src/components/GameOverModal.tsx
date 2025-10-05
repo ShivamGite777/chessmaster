@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Game } from '../types';
+import type { Game } from '../types';
 import { soundManager } from '../utils/sounds';
 
 interface GameOverModalProps {

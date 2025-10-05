@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAuthStore } from '../store';
 import { apiClient } from '../utils/api';
-import { GameHistory } from '../types';
+import type { GameHistory } from '../types';
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuthStore();

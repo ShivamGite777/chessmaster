@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { apiClient } from '../utils/api';
 import { soundManager } from '../utils/sounds';
-import { TimeControl } from '../types';
+import type { TimeControl } from '../types';
 
 interface CreateGameModalProps {
   onClose: () => void;

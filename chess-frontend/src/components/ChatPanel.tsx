@@ -16,7 +16,7 @@ interface ChatMessage {
   type: 'user' | 'system';
 }
 
-const ChatPanel: React.FC<ChatPanelProps> = ({ gameId }) => {
+const ChatPanel: React.FC<ChatPanelProps> = ({ gameId: _gameId }) => {
   const { user } = useAuthStore();
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -29,7 +29,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ gameId }) => {
     }
   ]);
   const [newMessage, setNewMessage] = useState('');
-  const [isConnected, setIsConnected] = useState(true);
+  const [isConnected, _setIsConnected] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {

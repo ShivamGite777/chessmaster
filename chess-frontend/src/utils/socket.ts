@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import { SocketEvents } from '../types';
+import type { SocketEvents } from '../types';
 
 class SocketManager {
   private socket: Socket | null = null;
@@ -56,13 +56,13 @@ class SocketManager {
 
   on<K extends keyof SocketEvents>(event: K, callback: SocketEvents[K]): void {
     if (this.socket) {
-      this.socket.on(event, callback);
+      this.socket.on(event, callback as any);
     }
   }
 
   off<K extends keyof SocketEvents>(event: K, callback?: SocketEvents[K]): void {
     if (this.socket) {
-      this.socket.off(event, callback);
+      this.socket.off(event, callback as any);
     }
   }
 
