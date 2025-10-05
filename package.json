@@ -1,0 +1,12 @@
+{
+  "name": "chessmaster",
+  "version": "1.0.0",
+  "description": "Modern Multiplayer Chess Game",
+  "scripts": {
+    "build": "cd chess-frontend && npm install && npm run build && cd .. && mkdir -p public && cp -r chess-frontend/public/* public/",
+    "dev": "cd chess-frontend && npm run dev"
+  },
+  "keywords": ["chess", "multiplayer", "react", "typescript"],
+  "author": "ShivamGite777",
+  "license": "MIT"
+}
