@@ -3,6 +3,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { Chess } = require('chess.js');
+const serverless = require('serverless-http');
 
 const app = express();
 
@@ -314,4 +315,4 @@ app.use((err, req, res, next) => {
 });
 
 // Export for Netlify Functions
-module.exports = app;
+module.exports.handler = serverless(app);
