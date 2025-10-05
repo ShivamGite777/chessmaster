@@ -9,6 +9,8 @@ interface GameListProps {
 }
 
 const GameList: React.FC<GameListProps> = ({ games, isLoading }) => {
+  console.log('GameList props:', { games, isLoading, gamesLength: games.length });
+  
   const handleJoinGame = (gameId: string) => {
     soundManager.playClick();
     // Navigate to game page

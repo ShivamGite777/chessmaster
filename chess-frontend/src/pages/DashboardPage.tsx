@@ -34,6 +34,7 @@ const DashboardPage: React.FC = () => {
 
   const loadAvailableGames = async () => {
     setIsLoadingGames(true);
+    console.log('Loading games, isAuthenticated:', isAuthenticated);
     try {
       if (isAuthenticated) {
         const response = await apiClient.getAvailableGames();
@@ -41,6 +42,7 @@ const DashboardPage: React.FC = () => {
           setAvailableGames(response.data);
         }
       } else {
+        console.log('Creating demo games...');
         // Demo mode - create some sample games
         const demoGames = [
           {
@@ -50,6 +52,7 @@ const DashboardPage: React.FC = () => {
               id: 'demo-opponent-1',
               username: 'Chess Master',
               email: 'master@chess.com',
+              avatar: undefined,
               elo: 1500,
               wins: 25,
               losses: 5,
@@ -64,9 +67,38 @@ const DashboardPage: React.FC = () => {
             },
             moves: [],
             currentPlayer: 'white' as const,
-            createdAt: new Date().toISOString()
+            winner: undefined,
+            createdAt: new Date().toISOString(),
+            startedAt: new Date().toISOString()
+          },
+          {
+            id: 'demo-game-2',
+            whitePlayer: {
+              id: 'demo-opponent-2',
+              username: 'Chess Pro',
+              email: 'pro@chess.com',
+              avatar: undefined,
+              elo: 1800,
+              wins: 50,
+              losses: 10,
+              draws: 5,
+              createdAt: new Date().toISOString()
+            },
+            blackPlayer: demoUser,
+            status: 'waiting' as const,
+            timeControl: {
+              type: 'rapid' as const,
+              initialTime: 600,
+              increment: 10
+            },
+            moves: [],
+            currentPlayer: 'white' as const,
+            winner: undefined,
+            createdAt: new Date().toISOString(),
+            startedAt: undefined
           }
         ];
+        console.log('Demo games created:', demoGames);
         setAvailableGames(demoGames);
       }
     } catch (error) {
