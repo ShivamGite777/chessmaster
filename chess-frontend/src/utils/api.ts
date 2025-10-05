@@ -92,7 +92,7 @@ class ApiClient {
   }
 
   async joinGame(gameData: JoinGameRequest): Promise<ApiResponse<Game>> {
-    const response = await this.client.post('/games/join', gameData);
+    const response = await this.client.post(`/games/${gameData.gameId}/join`, gameData);
     return response.data;
   }
 

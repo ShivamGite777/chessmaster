@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { Game } from '../types';
 import { formatTime } from '../utils/chess';
 import { soundManager } from '../utils/sounds';
+import { apiClient } from '../utils/api';
 
 interface GameListProps {
   games: Game[];
@@ -10,11 +13,30 @@ interface GameListProps {
 
 const GameList: React.FC<GameListProps> = ({ games, isLoading }) => {
   console.log('GameList props:', { games, isLoading, gamesLength: games.length });
+  const [joiningGame, setJoiningGame] = useState<string | null>(null);
+  const navigate = useNavigate();
   
-  const handleJoinGame = (gameId: string) => {
-    soundManager.playClick();
-    // Navigate to game page
-    window.location.href = `/game/${gameId}`;
+  const handleJoinGame = async (gameId: string) => {
+    try {
+      soundManager.playClick();
+      setJoiningGame(gameId);
+      
+      // Call API to join the game
+      const response = await apiClient.joinGame({ gameId });
+      
+      if (response.success) {
+        // Navigate to game page
+        navigate(`/game/${gameId}`);
+      } else {
+        console.error('Failed to join game:', response.error);
+        alert('Failed to join game: ' + response.error);
+      }
+    } catch (error) {
+      console.error('Error joining game:', error);
+      alert('Error joining game. Please try again.');
+    } finally {
+      setJoiningGame(null);
+    }
   };
 
   if (isLoading) {
@@ -122,9 +144,10 @@ const GameList: React.FC<GameListProps> = ({ games, isLoading }) => {
             <button
               onClick={() => handleJoinGame(game.id)}
               className="btn-primary px-4 py-2 text-sm"
-              disabled={game.status !== 'waiting'}
+              disabled={game.status !== 'waiting' || joiningGame === game.id}
             >
-              {game.status === 'waiting' ? 'Join' : 'Spectate'}
+              {joiningGame === game.id ? 'Joining...' : 
+               game.status === 'waiting' ? 'Join' : 'Spectate'}
             </button>
           </div>
         </motion.div>
