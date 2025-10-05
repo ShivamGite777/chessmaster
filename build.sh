@@ -1,11 +1,17 @@
 #!/bin/bash
 echo "Starting Netlify build process..."
 
+# Install backend dependencies
+echo "Installing backend dependencies..."
+cd netlify/functions
+npm install
+cd ../..
+
 # Navigate to chess-frontend directory
 cd chess-frontend
 
 # Install dependencies
-echo "Installing dependencies..."
+echo "Installing frontend dependencies..."
 npm install
 
 # Build the React app

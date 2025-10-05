@@ -4,6 +4,10 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  JWT_SECRET = "your-super-secret-jwt-key-change-in-production"
+
+[functions]
+  directory = "netlify/functions"
 
 [[headers]]
   for = "/api/*"
